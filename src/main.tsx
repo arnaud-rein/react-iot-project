@@ -5,6 +5,7 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import "./index.css";
+import Login from "./pages/login";
 
 import { useState } from "react";
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Home />,
+    },
+    {
+        path: "/login",
+        element: <Login />,
     },
 ]);
 
