@@ -1,17 +1,44 @@
 import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
+
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        alert(`Tentative de login avec :\nEmail: ${email}\nPassword: ${password}`);
-        // 🔐 Ici, tu pourrais envoyer une requête à une API
+
+        try {
+
+
+
+            const response = await axios.post(
+                "http://localhost:3000/login",
+                {
+                    username,
+                    password,
+                },
+                {
+                    withCredentials: true,
+                }
+            );
+
+            alert("✅ Connexion réussie !");
+            console.log(response.data); // Tu peux gérer ici la session utilisateur
+
+            // TODO : Redirection ou setUser dans un contexte
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                alert("❌ Erreur : " + (error.response?.data?.message || "Inconnue"));
+            } else {
+                console.error("Erreur inattendue :", error);
+            }
+        }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="flex items-center justify-center h-screen bg-gray-100">
             <form
                 onSubmit={handleSubmit}
                 className="bg-white p-8 rounded shadow-md w-full max-w-sm space-y-4"
@@ -19,10 +46,10 @@ export default function Login() {
                 <h1 className="text-xl font-bold text-center text-indigo-600">Connexion</h1>
 
                 <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Adresse e-mail"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Nom d'utilisateur"
                     className="w-full p-2 border rounded"
                     required
                 />
