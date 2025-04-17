@@ -5,10 +5,14 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import "./index.css";
+import 'mapbox-gl/dist/mapbox-gl.css';
+import MapPage from "./pages/MapPage";
 import Login from "./pages/login";
-
 import { useState } from "react";
-
+import { UserProvider } from "./context/UserContext"; // ✅ nouveau
+import Dashboard from "./pages/Dashboard"; // ou ton chemin
+import Iot from "./pages/iot"; // ou ton chemin
+import PrivateRoute from "./components/PrivateRoute"; // chemin vers PrivateRout
 
 function Home() {
     const [count, setCount] = useState(0);
@@ -27,27 +31,52 @@ function Home() {
     );
 }
 
-// Déclaration des routes
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home />,
+        element: <Home />
     },
     {
         path: "/login",
-        element: <Login />,
+        element: <Login />
     },
+    {
+        path: "/dashboard",
+        element: (
+            <PrivateRoute>
+                <Dashboard />
+            </PrivateRoute>
+        )
+    },
+    {
+        path: "/iot",
+        element: (
+            <PrivateRoute>
+                <Iot />
+            </PrivateRoute>
+        )
+    },
+
+    {
+        path: "/map",
+        element: (
+            <PrivateRoute>
+                <MapPage />
+            </PrivateRoute>
+        ),
+    }
+
 ]);
 
-// Vérifie que l'élément root existe
 const rootElement = document.getElementById("root");
 if (!rootElement) {
     throw new Error("Root element not found. Assure-toi que <div id='root'></div> existe dans index.html");
 }
 
-// Crée la racine React et rend l'application
 ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <UserProvider>
+            <RouterProvider router={router} />
+        </UserProvider>
     </React.StrictMode>
 );

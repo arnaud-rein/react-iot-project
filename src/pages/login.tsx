@@ -1,33 +1,32 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useUser } from "../context/UserContext";
 
 export default function Login() {
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const { setUser } = useUser();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // 🔁 D'où vient l'utilisateur (ex: /dashboard)
+    const from = location.state?.from?.pathname || "/";
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
-
-
-
             const response = await axios.post(
                 "http://localhost:3000/login",
-                {
-                    username,
-                    password,
-                },
-                {
-                    withCredentials: true,
-                }
+                { username, password },
+                { withCredentials: true }
             );
 
-            alert("✅ Connexion réussie !");
-            console.log(response.data); // Tu peux gérer ici la session utilisateur
+            setUser(response.data.user);
+            console.log("✅ Connexion réussie :", response.data.user);
 
-            // TODO : Redirection ou setUser dans un contexte
+            navigate(from); // ⬅️ redirige vers la page d’origine
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 alert("❌ Erreur : " + (error.response?.data?.message || "Inconnue"));
