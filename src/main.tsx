@@ -12,7 +12,10 @@ import { useState } from "react";
 import { UserProvider } from "./context/UserContext"; // ✅ nouveau
 import Dashboard from "./pages/Dashboard"; // ou ton chemin
 import Iot from "./pages/iot"; // ou ton chemin
-import PrivateRoute from "./components/PrivateRoute"; // chemin vers PrivateRout
+import PrivateRoute from "./components/PrivateRoute";
+import MapPageChemin from "./pages/cheminMap.tsx"; // chemin vers PrivateRout
+import MapSimple from "./pages/MapSimple.tsx";
+import MapSimpleAmeliore from "./pages/MapSimpleAmeliore.tsx"; // chemin vers PrivateRout
 
 function Home() {
     const [count, setCount] = useState(0);
@@ -60,9 +63,26 @@ const router = createBrowserRouter([
     {
         path: "/map",
         element: (
-            <PrivateRoute>
                 <MapPage />
-            </PrivateRoute>
+        ),
+    },
+
+    {
+        path: "/mapPath",
+        element: (
+                <MapPageChemin />
+        ),
+    },
+    {
+        path: "/mapSimple",
+        element: (
+                <MapSimple />
+        ),
+    },
+    {
+        path: "/mapSimpleAmeliore",
+        element: (
+                <MapSimpleAmeliore />
         ),
     }
 

@@ -37,5 +37,5 @@ export default function Map({ markers }: MapProps) {
         return () => map.remove(); // nettoyage
     }, [markers]);
 
-    return <div ref={mapContainer} className="w-full h-screen" />;
+    return <div ref={mapContainer} className="w-5xl h-80" />;
 }
