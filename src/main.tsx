@@ -16,6 +16,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import MapPageChemin from "./pages/cheminMap.tsx"; // chemin vers PrivateRout
 import MapSimple from "./pages/MapSimple.tsx";
 import MapSimpleAmeliore from "./pages/MapSimpleAmeliore.tsx"; // chemin vers PrivateRout
+import TestChart from "./components/apexTest.tsx"; // chemin vers PrivateRout
+import {AreaChart} from "./components/areaChart.tsx"; // chemin vers PrivateRout
 
 function Home() {
     const [count, setCount] = useState(0);
@@ -30,6 +32,10 @@ function Home() {
             >
                 + Incrémenter
             </button>
+            <div>
+                <TestChart></TestChart>
+                <AreaChart></AreaChart>
+            </div>
         </div>
     );
 }
@@ -95,8 +101,8 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-        <UserProvider>
+        {/*<UserProvider>*/}
             <RouterProvider router={router} />
-        </UserProvider>
+        {/*</UserProvider>*/}
     </React.StrictMode>
 );
