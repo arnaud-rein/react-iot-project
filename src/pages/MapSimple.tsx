@@ -16,8 +16,12 @@ export default function MapSimple() {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold p-4">Carte des objets connectés</h1>
+            <a href="#" id="testFocus0">test</a>
+            <h1 className="text-2xl font-bold p-4" id="titleTest">Carte des objets connectés</h1>
             <SimpleRouteMap />
+            <a href="#" id="testFocus">test</a>
+            <a href="#" id="testFocus2">test</a>
+            <a href="#" id="testFocus3">test</a>
         </div>
     );
 }
